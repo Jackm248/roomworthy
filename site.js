@@ -1,0 +1,9 @@
+(function(){
+const products=window.ROOMWORTHY_PRODUCTS||[];
+const labels={bedroom:'Bedroom',kitchen:'Kitchen',bathroom:'Bathroom',organization:'Organization','renter-friendly':'Renter-Friendly','small-spaces':'Small Spaces',lighting:'Lighting',entryway:'Entryway',decor:'Decor'};
+function card(p){return `<article class="product-card"><a class="product-image-wrap" href="${p.link}" target="_blank" rel="sponsored nofollow noopener"><img class="product-image" src="${p.image}" alt="${p.title.replace(/\"/g,'&quot;')}" loading="lazy"></a><div class="product-copy"><span class="product-kicker">ROOMWORTHY PICK</span><h3>${p.title}</h3><p>${p.description}</p><a class="shop-button" href="${p.link}" target="_blank" rel="sponsored nofollow noopener">View on Amazon <span aria-hidden="true">↗</span></a></div></article>`}
+function renderFeatured(){const el=document.getElementById('featuredProducts');if(!el)return;const ids=[1,5,8,10,17,18,20,23];el.innerHTML=ids.map(id=>card(products.find(p=>p.id===id))).join('');}
+function renderCategory(){const el=document.getElementById('categoryProducts');if(!el)return;const params=new URLSearchParams(location.search);const room=params.get('room')||'organization';const chosen=products.filter(p=>p.categories.includes(room));document.getElementById('categoryEyebrow').textContent=(labels[room]||room).toUpperCase();document.getElementById('categoryTitle').textContent=labels[room]||room;document.getElementById('categoryIntro').textContent=`Curated ${String(labels[room]||room).toLowerCase()} finds for apartments, small spaces and everyday living.`;document.title=`${labels[room]||room} Finds | Roomworthy`;el.innerHTML=chosen.length?chosen.map(card).join(''):'<p>No products in this collection yet.</p>';}
+function renderAll(){const el=document.getElementById('allProducts');if(el)el.innerHTML=products.map(card).join('');}
+renderFeatured();renderCategory();renderAll();
+})();
