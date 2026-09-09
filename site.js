@@ -1,4 +1,28 @@
 (function(){
+const GA_MEASUREMENT_ID='G-F3HB9HQE44';
+window.dataLayer=window.dataLayer||[];
+window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};
+window.gtag('js',new Date());
+window.gtag('config',GA_MEASUREMENT_ID,{send_page_view:true});
+const gaScript=document.createElement('script');
+gaScript.async=true;
+gaScript.src=`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+document.head.appendChild(gaScript);
+
+document.addEventListener('click',function(event){
+  const link=event.target.closest('a[href]');
+  if(!link)return;
+  let url;
+  try{url=new URL(link.href,location.href);}catch(_){return;}
+  const isAmazon=url.hostname==='amzn.to'||url.hostname.endsWith('.amazon.com')||url.hostname==='amazon.com';
+  if(!isAmazon)return;
+  window.gtag('event','amazon_outbound_click',{
+    link_url:url.href,
+    link_text:(link.textContent||'').trim().slice(0,120),
+    page_location:location.href
+  });
+});
+
 const products=window.ROOMWORTHY_PRODUCTS||[];
 const labels={bedroom:'Bedroom',kitchen:'Kitchen',bathroom:'Bathroom',organization:'Organization','renter-friendly':'Renter-Friendly','small-spaces':'Small Spaces',lighting:'Lighting',entryway:'Entryway',decor:'Decor'};
 const shortTitles={
@@ -53,9 +77,6 @@ function renderCategory(){const el=document.getElementById('categoryProducts');i
 function renderAll(){const el=document.getElementById('allProducts');if(el)el.innerHTML=products.map(card).join('');}
 function renderEverything(){renderHero();renderFeatured();renderStory();renderCategory();renderAll();}
 
-// Render immediately with lightweight embedded previews so page geometry is
-// established before the larger product-image archive finishes loading.
-// This substantially reduces cumulative layout shift on first visit.
 renderEverything();
 
 (async function upgradeImages(){
