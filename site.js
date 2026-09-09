@@ -1,13 +1,15 @@
 (function(){
-const GA_MEASUREMENT_ID='G-F3HB9HQE44';
+const GA_MEASUREMENT_ID='G-VHHW3KEQH3';
 window.dataLayer=window.dataLayer||[];
 window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};
 window.gtag('js',new Date());
 window.gtag('config',GA_MEASUREMENT_ID,{send_page_view:true});
-const gaScript=document.createElement('script');
-gaScript.async=true;
-gaScript.src=`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-document.head.appendChild(gaScript);
+if(!document.querySelector(`script[src*="googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}"]`)){
+  const gaScript=document.createElement('script');
+  gaScript.async=true;
+  gaScript.src=`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+  document.head.appendChild(gaScript);
+}
 
 document.addEventListener('click',function(event){
   const link=event.target.closest('a[href]');
@@ -53,7 +55,7 @@ const shortTitles={
 25:'Macrame Bedside Caddy',
 26:'Macrame Over-the-Door Organizer'
 };
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/\"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function primaryLabel(p){return labels[p.categories[0]]||'Roomworthy Pick'}
 function displayTitle(p){return shortTitles[p.id]||p.title}
 function card(p){return `<article class="product-card"><a class="product-image-wrap" href="${p.link}" target="_blank" rel="sponsored nofollow noopener"><img class="product-image" src="${p.image}" alt="${esc(p.title)}" title="${esc(p.title)}" loading="lazy" decoding="async" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')"></a><div class="product-copy"><span class="product-kicker">${esc(primaryLabel(p))}</span><h3 title="${esc(p.title)}">${esc(displayTitle(p))}</h3><p>${esc(p.description)}</p><a class="shop-button" href="${p.link}" target="_blank" rel="sponsored nofollow noopener">Shop on Amazon <span class="paid-link">(paid link)</span><span aria-hidden="true">↗</span></a></div></article>`}
