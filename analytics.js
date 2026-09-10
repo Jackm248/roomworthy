@@ -2,7 +2,7 @@ window.dataLayer=window.dataLayer||[];
 function gtag(){window.dataLayer.push(arguments);}
 window.gtag=window.gtag||gtag;
 gtag('js',new Date());
-gtag('config','G-2JWTMR6FBL',{send_page_view:true});
+gtag('config','G-T7LBWVN15H',{send_page_view:true});
 
 document.querySelectorAll('.article-note').forEach(function(note){note.textContent='Affiliate disclosure: This page contains paid Amazon links. As an Amazon Associate I earn from qualifying purchases.';});
 document.querySelectorAll('.article-cta').forEach(function(link){link.textContent=link.textContent.replace(/\s*\(paid link\)/gi,'');});
