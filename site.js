@@ -7,22 +7,8 @@ window.gtag('config',GA_MEASUREMENT_ID,{send_page_view:true});
 if(!document.querySelector(`script[src*="googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}"]`)){
   const gaScript=document.createElement('script');gaScript.async=true;gaScript.src=`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;document.head.appendChild(gaScript);
 }
-
-if(!window.pintrk){
-  window.pintrk=function(){window.pintrk.queue.push(Array.prototype.slice.call(arguments));};
-  window.pintrk.queue=[];
-  window.pintrk.version='3.0';
-  const p=document.createElement('script');p.async=true;p.src='https://s.pinimg.com/ct/core.js';
-  const first=document.getElementsByTagName('script')[0];
-  if(first&&first.parentNode){first.parentNode.insertBefore(p,first);}else{document.head.appendChild(p);}
-}
-window.pintrk('load','2613154226997');
-window.pintrk('page');
-window.pintrk('track','pagevisit',{event_id:'pv_'+Date.now()+'_'+Math.random().toString(36).slice(2,10),property:'Style Amazon Finds'});
-
 function pinterestEventId(prefix){return prefix+'_'+Date.now()+'_'+Math.random().toString(36).slice(2,10);}
-
-document.addEventListener('click',function(event){const link=event.target.closest('a[href]');if(!link)return;let url;try{url=new URL(link.href,location.href);}catch(_){return;}const isAmazon=url.hostname==='amzn.to'||url.hostname.endsWith('.amazon.com')||url.hostname==='amazon.com'||url.hostname==='link.amazon';if(!isAmazon)return;const linkText=(link.textContent||'').trim().slice(0,120);window.gtag('event','amazon_outbound_click',{link_url:url.href,link_text:linkText,page_location:location.href});window.pintrk('track','amazon_affiliate_click',{event_id:pinterestEventId('amz'),property:'Style Amazon Finds'});});
+document.addEventListener('click',function(event){const link=event.target.closest('a[href]');if(!link)return;let url;try{url=new URL(link.href,location.href);}catch(_){return;}const isAmazon=url.hostname==='amzn.to'||url.hostname.endsWith('.amazon.com')||url.hostname==='amazon.com'||url.hostname==='link.amazon';if(!isAmazon)return;const linkText=(link.textContent||'').trim().slice(0,120);window.gtag('event','amazon_outbound_click',{link_url:url.href,link_text:linkText,page_location:location.href});if(window.pintrk){window.pintrk('track','amazon_affiliate_click',{event_id:pinterestEventId('amz')});}});
 const products=window.STYLE_AMAZON_PRODUCTS||[];
 const labels={fashion:'Fashion',tops:'Tops',sweaters:'Sweaters',jackets:'Jackets',pants:'Pants',jeans:'Jeans',shoes:'Shoes',bags:'Bags',jewelry:'Jewelry',accessories:'Accessories',beauty:'Beauty',skincare:'Skincare',fragrance:'Fragrance',fall:'Fall Style'};
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/\"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
