@@ -4,27 +4,15 @@ window.gtag=window.gtag||gtag;
 gtag('js',new Date());
 gtag('config','G-VHHW3KEQH3',{send_page_view:true});
 
-/* Keep the required disclosure near each guide's product section, but make individual CTAs cleaner. */
-document.querySelectorAll('.article-note').forEach(function(note){
-  note.textContent='Affiliate disclosure: This page contains paid Amazon links. As an Amazon Associate I earn from qualifying purchases.';
-});
-document.querySelectorAll('.article-cta').forEach(function(link){
-  link.textContent=link.textContent.replace(/\s*\(paid link\)/gi,'');
-});
+document.querySelectorAll('.article-note').forEach(function(note){note.textContent='Affiliate disclosure: This page contains paid Amazon links. As an Amazon Associate I earn from qualifying purchases.';});
+document.querySelectorAll('.article-cta').forEach(function(link){link.textContent=link.textContent.replace(/\s*\(paid link\)/gi,'');});
 
 document.addEventListener('click',function(event){
-  const link=event.target.closest('a[href]');
-  if(!link)return;
-  let url;
+  const link=event.target.closest('a[href]');if(!link)return;let url;
   try{url=new URL(link.href,location.href);}catch(_){return;}
-  const isAmazon=url.hostname==='amzn.to'||url.hostname==='amazon.com'||url.hostname.endsWith('.amazon.com');
-  if(isAmazon){
-    gtag('event','amazon_outbound_click',{link_url:url.href,link_text:(link.textContent||'').trim().slice(0,120),page_location:location.href});
-    return;
-  }
-  if(url.origin===location.origin&&/\.html$/.test(url.pathname)&&url.pathname!==location.pathname){
-    gtag('event','internal_guide_click',{link_url:url.href,link_text:(link.textContent||'').trim().slice(0,120),page_location:location.href});
-  }
+  const isAmazon=url.hostname==='amzn.to'||url.hostname==='amazon.com'||url.hostname.endsWith('.amazon.com')||url.hostname==='link.amazon';
+  if(isAmazon){gtag('event','amazon_outbound_click',{link_url:url.href,link_text:(link.textContent||'').trim().slice(0,120),page_location:location.href});return;}
+  if(url.origin===location.origin&&/\.html$/.test(url.pathname)&&url.pathname!==location.pathname){gtag('event','internal_guide_click',{link_url:url.href,link_text:(link.textContent||'').trim().slice(0,120),page_location:location.href});}
 });
 
 (function addRelatedGuides(){
@@ -35,11 +23,8 @@ document.addEventListener('click',function(event){
     '/small-bathroom-organization.html':[['renter-friendly-upgrades.html','RENTER-FRIENDLY','9 renter-friendly upgrades that do not require drilling'],['small-apartment-kitchen-organization.html','KITCHEN','10 small apartment kitchen organization ideas'],['small-apartment-finds.html','SMALL SPACES','10 small apartment finds that make a space look more expensive']],
     '/small-apartment-kitchen-organization.html':[['small-bathroom-organization.html','BATHROOM','9 small bathroom organization ideas for apartments'],['renter-friendly-upgrades.html','RENTER-FRIENDLY','9 renter-friendly upgrades that do not require drilling'],['small-apartment-finds.html','SMALL SPACES','10 small apartment finds that make a space look more expensive']]
   };
-  const items=guides[location.pathname];
-  const close=document.querySelector('.article-close');
-  if(!items||!close)return;
-  const section=document.createElement('section');
-  section.className='related-guides';
+  const items=guides[location.pathname];const close=document.querySelector('.article-close');if(!items||!close)return;
+  const section=document.createElement('section');section.className='related-guides';
   section.innerHTML='<div class="related-heading"><span class="eyebrow">KEEP READING</span><h2>More Roomworthy guides</h2></div><div class="related-grid">'+items.map(function(item){return '<a class="related-card" href="'+item[0]+'"><small>'+item[1]+'</small><h3>'+item[2]+'</h3><b>Read guide →</b></a>';}).join('')+'</div><a class="related-all" href="guide.html">Browse all Roomworthy guides →</a>';
   close.insertAdjacentElement('afterend',section);
 })();
