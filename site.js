@@ -1,5 +1,5 @@
 (function(){
-const GA_MEASUREMENT_ID='G-VHHW3KEQH3';
+const GA_MEASUREMENT_ID='G-2JWTMR6FBL';
 window.dataLayer=window.dataLayer||[];
 window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};
 window.gtag('js',new Date());
