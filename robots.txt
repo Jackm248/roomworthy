@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://room-worthy.com/sitemap.xml
+Sitemap: https://styledfinds.co/sitemap.xml
