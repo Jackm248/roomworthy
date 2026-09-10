@@ -16,7 +16,7 @@ document.addEventListener('click',function(event){
   if(!link)return;
   let url;
   try{url=new URL(link.href,location.href);}catch(_){return;}
-  const isAmazon=url.hostname==='amzn.to'||url.hostname.endsWith('.amazon.com')||url.hostname==='amazon.com';
+  const isAmazon=url.hostname==='amzn.to'||url.hostname.endsWith('.amazon.com')||url.hostname==='amazon.com'||url.hostname==='link.amazon';
   if(!isAmazon)return;
   window.gtag('event','amazon_outbound_click',{
     link_url:url.href,
@@ -28,32 +28,7 @@ document.addEventListener('click',function(event){
 const products=window.ROOMWORTHY_PRODUCTS||[];
 const labels={bedroom:'Bedroom',kitchen:'Kitchen',bathroom:'Bathroom',organization:'Organization','renter-friendly':'Renter-Friendly','small-spaces':'Small Spaces',lighting:'Lighting',entryway:'Entryway',decor:'Decor'};
 const shortTitles={
-1:'Cordless Rechargeable Table Lamp',
-2:'2-Tier Pull-Out Under-Sink Organizer',
-3:'BedShelfie Wood Bedside Shelf',
-4:'Vacuum Storage Bags, 20-Piece Set',
-5:'Acacia-Lid Glass Spice Jar Set',
-6:'Floor Lamp with 4-Tier Shelves',
-7:'3-Tier Over-the-Toilet Storage Rack',
-8:'Adhesive Shower Caddy, 5-Pack',
-9:'Washable Vintage Area Rug, 4×6',
-10:'Chunky Chenille Throw Blanket',
-11:'Neutral Chenille Pillow Covers, 2-Pack',
-12:'Wall Key & Mail Holder with Shelf',
-13:'No-Drill Under-Desk Cable Tray',
-14:'Command Display Ledges, 2-Pack',
-15:'No-Drill Adjustable Curtain Rod',
-16:'Peel-and-Stick White Subway Tile',
-17:'Rechargeable LED Wall Sconce',
-18:'Walnut Flip-Drawer Shoe Cabinet',
-19:'LED Jewelry Cabinet with Mirror',
-20:'Arched Tilt-Out Storage Cabinet',
-21:'2-Tier Bathroom Corner Organizer',
-22:'Slim Rolling Storage Cart',
-23:'Natural Oak Pull-Out Trash Cabinet',
-24:'Rolling Under-Bed Storage',
-25:'Macrame Bedside Caddy',
-26:'Macrame Over-the-Door Organizer'
+1:'Cordless Rechargeable Table Lamp',2:'2-Tier Pull-Out Under-Sink Organizer',3:'BedShelfie Wood Bedside Shelf',4:'Vacuum Storage Bags, 20-Piece Set',5:'Acacia-Lid Glass Spice Jar Set',6:'Floor Lamp with 4-Tier Shelves',7:'3-Tier Over-the-Toilet Storage Rack',8:'Adhesive Shower Caddy, 5-Pack',9:'Washable Vintage Area Rug, 4×6',10:'Chunky Chenille Throw Blanket',11:'Neutral Chenille Pillow Covers, 2-Pack',12:'Wall Key & Mail Holder with Shelf',13:'No-Drill Under-Desk Cable Tray',14:'Command Display Ledges, 2-Pack',15:'No-Drill Adjustable Curtain Rod',16:'Peel-and-Stick White Subway Tile',17:'Rechargeable LED Wall Sconce',18:'Walnut Flip-Drawer Shoe Cabinet',19:'LED Jewelry Cabinet with Mirror',20:'Arched Tilt-Out Storage Cabinet',21:'2-Tier Bathroom Corner Organizer',22:'Slim Rolling Storage Cart',23:'Natural Oak Pull-Out Trash Cabinet',24:'Rolling Under-Bed Storage',25:'Macrame Bedside Caddy',26:'Macrame Over-the-Door Organizer',27:'Rechargeable Motion Sensor Ceiling Lights'
 };
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/\"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function primaryLabel(p){return labels[p.categories[0]]||'Roomworthy Pick'}
@@ -78,15 +53,6 @@ function renderStory(){const el=document.getElementById('storyProducts');if(!el)
 function renderCategory(){const el=document.getElementById('categoryProducts');if(!el)return;const params=new URLSearchParams(location.search);const room=params.get('room')||'organization';const chosen=products.filter(p=>p.categories.includes(room));const label=labels[room]||room;const canonical=`https://room-worthy.com/category.html?room=${encodeURIComponent(room)}`;const description=`Useful, elevated ${String(label).toLowerCase()} picks for apartments and small spaces.`;document.getElementById('categoryEyebrow').textContent='ROOMWORTHY / '+label.toUpperCase();document.getElementById('categoryTitle').textContent=label+' Finds';document.getElementById('categoryIntro').textContent=description;document.title=`${label} Finds | Roomworthy`;const canonicalLink=document.getElementById('canonicalLink');if(canonicalLink)canonicalLink.href=canonical;const ogTitle=document.getElementById('ogTitle');if(ogTitle)ogTitle.content=`${label} Finds | Roomworthy`;const ogDescription=document.getElementById('ogDescription');if(ogDescription)ogDescription.content=description;const ogUrl=document.getElementById('ogUrl');if(ogUrl)ogUrl.content=canonical;el.innerHTML=chosen.length?chosen.map(card).join(''):'<p>No products in this collection yet.</p>';}
 function renderAll(){const el=document.getElementById('allProducts');if(el)el.innerHTML=products.map(card).join('');}
 function renderEverything(){renderHero();renderFeatured();renderStory();renderCategory();renderAll();}
-
 renderEverything();
-
-(async function upgradeImages(){
-  try{
-    await loadFullQualityImages();
-    renderEverything();
-  }catch(err){
-    console.error('Roomworthy image loader:',err);
-  }
-})();
+(async function upgradeImages(){try{await loadFullQualityImages();renderEverything();}catch(err){console.error('Roomworthy image loader:',err);}})();
 })();
