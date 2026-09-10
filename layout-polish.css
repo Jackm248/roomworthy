@@ -8,7 +8,8 @@
 .product-card h3{font:20px/1.2 Georgia,serif;margin:5px 0 9px;letter-spacing:-.15px;min-height:48px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;overflow-wrap:anywhere}
 .product-card p{font-size:12px;line-height:1.55;color:#72766e;margin:0 0 13px;min-height:56px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;overflow-wrap:anywhere}
 .shop-button{margin-top:auto;min-height:31px;align-items:center;white-space:nowrap}
-.paid-link{white-space:nowrap}
+/* Disclosure is handled once near each product section and in the footer. */
+.paid-link{display:none!important}
 .hero-main{padding:22px 22px 88px!important}
 .hero-main img{width:100%!important;height:100%!important;object-fit:contain!important;padding:0!important}
 .hero-main span{bottom:57px!important}
@@ -28,26 +29,6 @@
 .guide-list>a>div{min-width:0}
 .guide-list h3{line-height:1.25}
 footer>*{min-width:0}
-@media(max-width:1050px){
-  .product-card h3{font-size:19px}
-  .product-card p{min-height:55px}
-  .story-product strong{font-size:14px}
-}
-@media(max-width:720px){
-  .product-image-wrap{aspect-ratio:4/3;height:auto!important}
-  .product-card h3{min-height:0;-webkit-line-clamp:3;font-size:21px}
-  .product-card p{min-height:0;-webkit-line-clamp:4}
-  .shop-button{white-space:normal}
-  .story-product>div{aspect-ratio:4/3;height:auto!important}
-  .story-product strong{min-height:0;-webkit-line-clamp:3;font-size:16px}
-  .hero-main{padding:14px 14px 78px!important}
-  .hero-main span{left:15px;bottom:50px!important}
-  .hero-main strong{left:15px;right:15px;bottom:16px;max-width:calc(100% - 30px);font-size:13px}
-  .category-rail a{min-height:74px}
-}
-@media(max-width:460px){
-  .product-image{padding:12px!important}
-  .product-card h3{font-size:20px}
-  .story-product{padding:14px}
-  .story-product img{padding:8px!important}
-}
+@media(max-width:1050px){.product-card h3{font-size:19px}.product-card p{min-height:55px}.story-product strong{font-size:14px}}
+@media(max-width:720px){.product-image-wrap{aspect-ratio:4/3;height:auto!important}.product-card h3{min-height:0;-webkit-line-clamp:3;font-size:21px}.product-card p{min-height:0;-webkit-line-clamp:4}.shop-button{white-space:normal}.story-product>div{aspect-ratio:4/3;height:auto!important}.story-product strong{min-height:0;-webkit-line-clamp:3;font-size:16px}.hero-main{padding:14px 14px 78px!important}.hero-main span{left:15px;bottom:50px!important}.hero-main strong{left:15px;right:15px;bottom:16px;max-width:calc(100% - 30px);font-size:13px}.category-rail a{min-height:74px}}
+@media(max-width:460px){.product-image{padding:12px!important}.product-card h3{font-size:20px}.story-product{padding:14px}.story-product img{padding:8px!important}}
